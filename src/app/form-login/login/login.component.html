@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12" style="margin-top: 20px">
+            <mat-card style="margin: 50px 0">
+                <div *ngIf="isLoggedIn; else loggedOut">
+                    <h1 style="color: #3F51B5">Welcome: <strong style="color: #9C27B0">{{name}}</strong> </h1>
+                    <button style="color: darkred; text-decoration: none;" aria-label="Angular Audio Player"
+                            class="docs-button mat-button"
+                            mat-button tabindex="0" aria-disabled="false" routerLink="/user">
+                        <mat-icon color="accent" matSuffix>account_circle</mat-icon>
+
+                        <b>User Account</b>
+                        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </button><span class="example-spacer"></span>
+                </div>
+                <ng-template #loggedOut>
+                    <form class="form-login" name="form" (ngSubmit)="f.form.valid&&onSubmit()" #f="ngForm" novalidate>
+                        <mat-form-field style="width: 350px" appearance="outline">
+                            <mat-label>Username</mat-label>
+                            <input name="username" matInput placeholder="Enter your username ..." [(ngModel)]="form.username" #username="ngModel" required>
+                            <mat-icon color="accent" matSuffix>sentiment_very_satisfied</mat-icon>
+                            <mat-error *ngIf="f.submitted&&username.invalid"></mat-error>
+                        </mat-form-field><br>
+                        <mat-form-field style="width: 350px" appearance="outline">
+                            <mat-label>Enter your password</mat-label>
+                            <input name="password" matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="form.password" required
+                                   minlength="6" maxlength="100" #password="ngModel">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon color="primary">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="f.submitted&&password.invalid"></mat-error>
+                            <mat-error *ngIf="password.errors?.minlength">
+                                Password is must than 6 character!
+                            </mat-error>
+                        </mat-form-field><br>
+                        <button type="submit" style="color: crimson; text-decoration: none;"
+                                aria-label="Angular Audio Player"
+                                class="mat-button-toggle-group btn-outline-success"
+                                mat-button tabindex="0" aria-disabled="false"><span class="mat-button-wrapper"><b>
+                       Login
+                    <img src="../../../assets/images/icons/register.png" height="40" width="40"/></b></span>
+                        </button>
+                        <div *ngIf="f.submitted&&isLoggedFailed" class="alert alert-warning">
+                            Login Failed please Check username of password -> {{status}}
+                        </div>
+                    </form>
+                </ng-template>
+            </mat-card>
+        </div>
+    </div>
+</div>
